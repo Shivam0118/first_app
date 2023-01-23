@@ -1,75 +1,81 @@
+//import 'dart:html';
 import 'package:flutter/material.dart';
 
 void main() {
-  var offset;
-
-  runApp(MaterialApp(
-      home: Scaffold(
-          body: SafeArea(
-    child: Container(
-      color: Colors.white12,
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        ...getMyWidget(),
-        Container(
-          child: SizedBox(
-            height: 20,
-          ),
-        ),
-        Container(
-          height: 20,
-          color: Colors.black,
-        )
-        /*Container(
-                              width: 40,
-                              height: 40,
-                              color: Colors.blueAccent,
-                              child: Center(child: Text("1")),
-                            ),
-                            Container(
-                                width: 40,
-                                height: 40,
-                                color: Colors.redAccent,
-                                child: Center(child: Text("2"))),
-                            Container(
-                                width: 40,
-                                height: 40,
-                                color: Colors.greenAccent,
-                                child: Center(child: Text("3")))
-                          */
-      ]),
-    ),
-  ))));
+  runApp(MaterialApp(home: Screen1(), routes: {
+    "/": (context) => Screen1(),
+    "/Screen2": (context) => Screen2(),
+    "/Screen3": (context) => Screen3(),
+  }));
 }
 
-//Android materialapp
-//ios cupurtino theme
-List<Widget> getMyWidget() {
-  List<Color> myContainerColor = [
-    Colors.blue,
-    Colors.green,
-    Colors.amber,
-    Colors.pink,
-    Colors.indigo,
-    Colors.red,
-    Colors.purple
-  ];
-  List<Widget> myResult = [];
+class Screen1 extends StatelessWidget {
+  const Screen1({super.key});
 
-  for (var i = 0; i < myContainerColor.length; i++) {
-    myResult.add(Container(
-      color: myContainerColor[i].withAlpha(100),
-      child: Row(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            color: myContainerColor[i],
-            child: Center(child: Text("${i + 1}")),
-          ),
-        ],
-      ),
-    ));
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.yellow,
+        body: SafeArea(
+          child: Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                InkWell(
+                    onTap: () {
+                      print("On Screen 1");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => Screen2() as Widget)));
+                    },
+                    child: Container(
+                      child: Text("button 1"),
+                    ))
+              ])),
+        ));
   }
-  return myResult;
+}
+
+class Screen2 extends StatelessWidget {
+  const Screen2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.blue,
+        body: SafeArea(
+            child: Center(
+          child: InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => Screen3())));
+            },
+            child: Container(
+              child: Text("button 2"),
+            ),
+          ),
+        )));
+  }
+}
+
+class Screen3 extends StatelessWidget {
+  const Screen3({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.green,
+        body: SafeArea(
+            child: Center(
+          child: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, "/");
+            },
+            child: Container(
+              child: Text("button 3"),
+            ),
+          ),
+        )));
+  }
 }
