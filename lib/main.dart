@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 void main() {
   runApp(MyHome());
@@ -70,6 +71,22 @@ class _Screen_2State extends State<Screen_2> {
                   });
                   widget.changeThemeToDark(value);
                 }),
+            AnimatedTextKit(
+              animatedTexts: [
+                TypewriterAnimatedText(
+                  'Hello world!',
+                  textStyle: const TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  speed: const Duration(milliseconds: 200),
+                ),
+              ],
+              totalRepeatCount: 4,
+              pause: const Duration(milliseconds: 1000),
+              displayFullTextOnTap: true,
+              stopPauseOnTap: true,
+            ),
             InkWell(
               onTap: () {
                 print("On Screen 1");
